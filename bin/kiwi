@@ -261,8 +261,8 @@ install() {
     else
       download $name $version
       unpack $seed
-      install_dependencies ${seed%/*}/package.json
       build ${seed%/*}
+      install_dependencies ${seed%/*}/package.json
     fi
   fi
 }
