@@ -473,6 +473,34 @@ repl() {
 }
 
 #
+# Output value for package.json <key> when present.
+# Before using you must first setup_json
+# 
+# <key>
+#
+
+function package() {
+  local tmp=$(mktemp -t kiwi)
+  cat $json > $tmp
+  echo -n ";require('sys').p($1)" >> $tmp
+  node $tmp
+}
+
+#
+# Setup temp json file used by package based on
+# the given <file>.
+# 
+# <file>
+#
+
+function setup_json() {
+  [[ -f $1 ]] || abort package.json path required
+  json=$(mktemp -t kiwi)
+  echo -n 'package = ' > $json
+  cat $1 >> $json
+}
+
+#
 # Parse the given args.
 # 
 # <arg ...>
