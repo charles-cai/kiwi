@@ -1,0 +1,8 @@
+{
+  "name": "Crypto",
+  "description": "A wrapper around openssl for node.js, currently exposing Hashing, Signing and Verifying methods.",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "node-waf configure build"
+  }
+}
