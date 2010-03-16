@@ -1,0 +1,4 @@
+{ "name": "Haml",
+  "description": "Haml template engine",
+  "version": "0.1.1"
+}
