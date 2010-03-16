@@ -70,7 +70,7 @@ post '/:name/?' do
   # Validate files
   
   fail '<version>.seed tarball is required' unless tarball
-  fail 'seed.yml is required' unless info
+  fail 'package.json is required' unless info
   version = File.basename tarball[:filename], '.seed'
   fail 'version is invalid; must be formatted as "n.n.n"' unless version =~ /\A\d+\.\d+\.\d+\z/
     
@@ -78,11 +78,11 @@ post '/:name/?' do
 
   FileUtils.mkdir_p SEEDS + "/#{name}"
   FileUtils.mv tarball[:tempfile].path, SEEDS + "/#{name}/#{version}.seed", :force => true
-  FileUtils.mv info[:tempfile].path, SEEDS + "/#{name}/#{version}.yml", :force => true
+  FileUtils.mv info[:tempfile].path, SEEDS + "/#{name}/#{version}.json", :force => true
   
   # Update version data
   
-  info = YAML.load_file SEEDS + "/#{name}/#{version}.yml"
+  info = JSON.parse File.read(SEEDS + "/#{name}/#{version}.json")
   
   if seed.versions.first :number => version
     state = :replaced

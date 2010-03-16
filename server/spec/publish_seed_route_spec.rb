@@ -6,7 +6,7 @@ describe "POST /:name" do
     @bob = User.create :name => 'bob', :password => 'foobar'
     @sass = @bob.seeds.create :name => 'sass'
     @tarball = Rack::Test::UploadedFile.new '../server/seeds/oo/1.1.0.seed', 'application/x-tar-gzip'
-    @info = Rack::Test::UploadedFile.new '../server/seeds/oo/1.1.0.yml', 'text/yaml'
+    @info = Rack::Test::UploadedFile.new '../server/seeds/oo/1.1.0.json', 'application/json'
   end
   
   describe "when not given authentication" do
@@ -37,7 +37,7 @@ describe "POST /:name" do
     it "should respond with 500" do
       post '/oo', { :seed => @tarball }, basic_auth(:joe, :foobar)
       last_response.status.should == 500
-      last_response.body.should include('seed.yml is required')
+      last_response.body.should include('package.json is required')
     end
   end
   

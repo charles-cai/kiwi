@@ -93,7 +93,7 @@ setup_seed() {
 #
 
 pack() {
-  require_seed_info_file seed.yml
+  require_seed_info_file package.json
   local tmpfile=$(mktemp -t 'kiwi-ignore')
   if [[ -f .ignore ]]; then
     log ignore globs in .ignore
@@ -160,7 +160,7 @@ download() {
 
 build() {
   local dir=$1
-  local info=$dir/seed.yml
+  local info=$dir/package.json
   require_seed_info_file $info
   local command=$(cat $info | grep build: | cut -d ':' -f 2)
   if [[ $command ]]; then
@@ -186,10 +186,10 @@ publish() {
   local version=$2
   local seed=$version.seed
   [[ ! -f $seed ]] && abort $seed not found.
-  require_seed_info_file seed.yml
+  require_seed_info_file package.json
   require_auth
   log publish "$seed -> $SERVER/$name"
-  curl -F seed=@$seed -F info=@seed.yml http://$auth@$SERVER_ADDR:$SERVER_PORT/$name -H 'Accept: text/plain'
+  curl -F seed=@$seed -F info=@package.json http://$auth@$SERVER_ADDR:$SERVER_PORT/$name -H 'Accept: text/plain'
 }
 
 #
@@ -261,7 +261,7 @@ install() {
     else
       download $name $version
       unpack $seed
-      install_dependencies ${seed%/*}/seed.yml
+      install_dependencies ${seed%/*}/package.json
       build ${seed%/*}
     fi
   fi
@@ -438,7 +438,7 @@ require_seeds() {
 #
 
 require_seed_info_file() {
-  [[ ! -f $1 ]] && abort seed.yml file required.
+  [[ ! -f $1 ]] && abort package.json file required.
 }
 
 #

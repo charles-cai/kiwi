@@ -235,7 +235,7 @@ describe "Kiwi" do
           kiwi('release foo 0.1.1').should include('Successfully')
           kiwi('install foo 0.1.1')
           File.directory?(File.expand_path('~/.kiwi/current/seeds/foo/0.1.1')).should be_true
-          File.file?(File.expand_path('~/.kiwi/current/seeds/foo/0.1.1/seed.yml')).should be_true
+          File.file?(File.expand_path('~/.kiwi/current/seeds/foo/0.1.1/package.json')).should be_true
         end
         `rm -fr server/seeds/foo`
       end
@@ -293,7 +293,7 @@ describe "Kiwi" do
       end
       
       describe "<version>" do
-        describe "when seed.yml is present" do
+        describe "when package.json is present" do
           it "should build <version>.seed" do
             in_fixture :valid do
               kiwi('build 0.1.1')
@@ -303,10 +303,10 @@ describe "Kiwi" do
           end
         end
         
-        describe "when seed.yml is not present" do
-          it "should abort with seed.yml file required" do
+        describe "when package.json is not present" do
+          it "should abort with package.json file required" do
             in_fixture :invalid do
-              kiwi('build 0.1.1').should include('seed.yml file required')
+              kiwi('build 0.1.1').should include('package.json file required')
             end
           end
         end
