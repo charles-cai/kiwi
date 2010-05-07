@@ -254,7 +254,7 @@ install() {
   if [[ $version =~ seed\n?$ ]]; then
     log install local
     local file=$version
-    version=$(basename -s '.seed' $file)
+    version=$(basename $file '.seed')
     seed=$SEED_DEST/$name/$version/$name.seed
     mkdir -p ${seed%/*}
     cp $file $seed
