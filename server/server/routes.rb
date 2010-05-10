@@ -49,6 +49,7 @@ get '/search/?' do
   Seed.all(:order => [:name.asc]).map do |seed|
     next if name and not seed.name.include? name
     version = seed.current_version
+    next unless version
     '%15s : %s - %s (%d)' % [seed.name, version.number, version.description, seed.downloads]
   end.compact.join("\n") + "\n"
 end
