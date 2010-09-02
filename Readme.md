@@ -1,10 +1,9 @@
 
+__NOTE: kiwi is no longer supported, please use npm. This repository will remain for educational purposes only__ 
+
 # Kiwi - Node.js Package Management
 
   JavaScript package management system for **node.js**
-  
-NOTE: kiwi is no longer actively developed, however it will remain available until november 2010.
-
 ## About
 
 Kiwi development is sponsored by [Vision Media](http://vision-media.ca) and hosting
